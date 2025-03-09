@@ -1,0 +1,16 @@
+{
+  "name": "loadshedding",
+  "version": "1.0.0",
+  "description": "Does a api call to see what stage of loadshedding we are in.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Francois Gericke",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.8.2",
+    "express": "^4.21.2"
+  }
+}
