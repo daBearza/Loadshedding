@@ -1,6 +1,22 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home details</title>
 </head>
+<body>
+    <% if(locals.schedule) { %>
+        <h1> Loadshedding schedule for <%= day %>, <%= date %>. </h1>
+        <h2> We are currently on Stage <%= stage %>.</h2>
+        <% schedule.forEach((stages, cntr) => { %>
+            <h3> Stage: <%= cntr + 1 %></h3>
+            <% stages.forEach(level => { %>
+                <li> <%= level %> </li>
+        <%  })}); %>
+    <% }else { %>
+        <h1> No data received.</h1>
+    <% } %>
+    
+</body>
 </html>

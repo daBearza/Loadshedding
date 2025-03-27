@@ -31,24 +31,26 @@ const fetchLoadSheddingStage = async () => {
         });
         loadSheddingData = response.data;
         // lastDate = new Date();
-        console.log('enents: ' + loadSheddingData.events[0].note);
+        console.log('events: ' + loadSheddingData.events[0].note);
         const event = response.data.events[0].note;
         // const event = null;
-
-        console.log('event: ' + event);
-        if(event !== null){
-            stage = event.match(/\d+/);
-            console.log('Hit this spot -->')
-        } else {
-            stage = 0;
+        if(loadSheddingData !== null){
+            console.log('event: ' + event);
+            if(event !== null){
+                stage = event.match(/\d+/);
+                console.log('Hit this spot -->')
+            } else {
+                stage = 0;
+            }
+            scheduleDay = loadSheddingData.schedule.days[0].name;
+            scheduleDate = loadSheddingData.schedule.days[0].date;
+            schedule = loadSheddingData.schedule.days[0].stages
         }
-        scheduleDay = loadSheddingData.schedule.days[0].name;
-        scheduleDate = loadSheddingData.schedule.days[0].date;
-        schedule = loadSheddingData.schedule.days[0].stages
+
         console.log('stage: ' + stage);
         console.log('name: ' + scheduleDay);
         console.log('date: ' + scheduleDate);
-        console.log('schedule: ' + schedule[stage -1]);
+        console.log('schedule: ' + schedule[0]);
         // console.log('Updated load shedding data: ', loadSheddingData);
     } catch (error) {
         console.error('Error fetching data:', error.message);
@@ -61,8 +63,7 @@ setInterval(fetchLoadSheddingStage, 30 * 60 * 1000);
 
 app.get("/", async (req,res) => {
     try{
-        console.log('--> ' + loadSheddingData);
-        res.render("index.ejs")
+        res.render("index.ejs",{stage: stage, day: scheduleDay, date: scheduleDate, schedule: schedule})
     } catch (error) {
         console.log(error.message);
     }
